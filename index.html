@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PathFinder</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="blah">
+        <a class="home" href="#">Pathfinding Visualizer</a>
+        <div class="keybinds-dropdown">
+          Controls
+          <div class="content">
+            <p>Place starting block (S)</p>
+            <p>Place ending block (E)</p>
+            <p>Visualize (V)</p>
+          </div>
+        </div>
+        <div class="algo-dropdown">
+          <p class="selected-algo">BFS</p>
+          <div class="algos">
+            <p class="bfs">BFS</p>
+            <p class="a-star">A*</p>
+          </div>
+        </div>
+        <p>Change speed</p>
+        <input type="range" min="1" max="100" value="15" class="speed-slider" />
+      </div>
+      <div class="my-info">
+        By <a id="me" href="https://github.com/raaghavaadithya" target="blank">Raaghav</a> <a id="link" href="https://github.com/raaghavaadithya/Pathfinding-Visualizer" target="blank">(Repo Link)</a>
+      </div>
+    </div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
