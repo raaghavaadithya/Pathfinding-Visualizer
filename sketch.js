@@ -167,20 +167,22 @@ let placeStartBlock = () => {
 };
 
 let placeEndBlock = () => {
-  if (endX != null) {
-    fill(255);
-    rect(endX, endY, scale, scale);
-  }
-
-  fill(0, 255, 0);
-  noStroke();
   let gridX = Math.floor(Math.floor(mouseX) / scale) * scale;
   let gridY = Math.floor(Math.floor(mouseY) / scale) * scale;
-  rect(gridX, gridY, scale, scale);
-  endX = gridX;
-  endY = gridY;
-  if (grid[gridY / scale][gridX / scale].isWall) {
-    grid[gridY / scale][gridX / scale].isWall = false;
+  if (gridY / scale < rows && gridX / scale < cols) {
+    if (endX != null) {
+      fill(255);
+      rect(endX, endY, scale, scale);
+    }
+
+    fill(0, 255, 0);
+    noStroke();
+    rect(gridX, gridY, scale, scale);
+    endX = gridX;
+    endY = gridY;
+    if (grid[gridY / scale][gridX / scale].isWall) {
+      grid[gridY / scale][gridX / scale].isWall = false;
+    }
   }
 };
 
@@ -232,6 +234,7 @@ let a_star = () => {
       [scale, -scale],
     ];
     let k = document.querySelector(".speed-slider").value;
+    k = max(1, k-10);
     while (k--) {
       let cur = myHeap.remove();
       cur.seen = true;
