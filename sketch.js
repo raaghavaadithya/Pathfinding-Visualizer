@@ -43,7 +43,6 @@ class Heap {
     let currentIndex = this.heap.length - 1;
 
     while (true) {
-      //console.log(`ParentIndex in insert: ${parentIndex}`);
       let parentIndex = max(Math.floor((currentIndex - 1) / 2), 0);
       let parentNode = this.heap[parentIndex];
       if (node.f < parentNode.f || (node.f == parentNode.f && node.h < parentNode.h)) {
@@ -52,7 +51,7 @@ class Heap {
       } else {
         break;
       }
-      
+
       currentIndex = parentIndex;
     }
   }
@@ -84,8 +83,6 @@ class Heap {
 
         let parentNode = this.heap[parentIndex];
         let swapNode = this.heap[swapIndex];
-        //console.log(`ParentIndex in remove: ${parentIndex}`);
-
 
         if (swapNode.f < parentNode.f || (swapNode.f == parentNode.f && swapNode.h < parentNode.h)) {
           //swap
@@ -94,7 +91,6 @@ class Heap {
           break;
         }
         parentIndex = swapIndex;
-
       } else {
         break;
       }
@@ -304,7 +300,6 @@ let bfs = () => {
 };
 
 let a_star = () => {
-  let starting = performance.now();
   if (!done) {
     let dirs = [
       [scale, 0],
@@ -332,19 +327,17 @@ let a_star = () => {
         let new_x = current.x + dirs[i][0];
         let new_y = current.y + dirs[i][1];
 
-        if (!inBounds(new_x, new_y) || grid[new_y / scale][new_x / scale].seen) {
+        if (!inBounds(new_x, new_y) || grid[new_y / scale][new_x / scale].seen || (IsWall(new_x, current.y) && IsWall(current.x, new_y))) {
           continue;
         }
 
         let neighbour = grid[new_y / scale][new_x / scale];
 
         let newGCostOfNeighbour = current.g + getDistance(current, neighbour);
-        // console.log(`g: ${newGCostOfNeighbour}`);
 
         if (newGCostOfNeighbour < neighbour.g || !neighbour.inQ) {
           neighbour.g = newGCostOfNeighbour;
           neighbour.h = getDistance(neighbour, grid[endY / scale][endX / scale]);
-          // console.log(`${endX}, ${endY}`);
           neighbour.f = neighbour.g + neighbour.h;
           neighbour.prevX = current.x;
           neighbour.prevY = current.y;
@@ -363,8 +356,6 @@ let a_star = () => {
     rect(startX, startY, scale, scale);
     retraceSteps(endX, endY);
     retraced = true;
-    let ending = performance.now();
-    console.log(`Time taken: ${ending - starting}ms`)
   }
 };
 
@@ -484,4 +475,9 @@ function prevButton() {
     default:
       break;
   }
+}
+
+function IsWall(x, y) {
+  if (x / scale < cols && y / scale < rows && grid[y / scale][x / scale].isWall) return true;
+  return false;
 }
