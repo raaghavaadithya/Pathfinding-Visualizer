@@ -130,6 +130,7 @@ function setup() {
 }
 
 function draw() {
+  //called automatically by p5, like update in unity
   if (mouseIsPressed && !visualizing && tutorial_done) {
     drawWalls();
   }
@@ -292,7 +293,10 @@ let bfs = () => {
         }
       }
     }
-    if (q.length === 0) resetPage();
+    if (q.length === 0) {
+      resetPage();
+      alert("There was no possible path");
+    }
   } else if (!retraced) {
     retraceSteps(endX, endY);
     retraced = true;
@@ -349,7 +353,10 @@ let a_star = () => {
         }
       }
     }
-    if (myHeap.heap.length === 0) resetPage();
+    if (myHeap.heap.length === 0) {
+      resetPage();
+      alert("There was no possible path");
+    }
   } else if (!retraced) {
     fill(255, 0, 0);
     noStroke();
